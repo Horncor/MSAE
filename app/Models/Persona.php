@@ -24,8 +24,6 @@ class Persona extends Model
         'ESTADO'
     ];
 
-    use HasFactory;
-
     public function getIdAttribute(){
         return $this->attributes['ID'];
     }
