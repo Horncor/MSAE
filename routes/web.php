@@ -32,3 +32,7 @@ Route::get('/register', function () {
 Route::get('/bisection', function () {
     return view('methods.bisection');
 });
+
+Route::get('/fixed-point', function () {
+    return view('methods.fixedPoint');
+});
