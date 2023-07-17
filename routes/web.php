@@ -24,6 +24,11 @@ Route::get('/userInfo', function () {
 Route::get('/login', function () {
     return view('login.login');
 });
+
 Route::get('/register', function () {
     return view('login.register');
+});
+
+Route::get('/bisection', function () {
+    return view('methods.bisection');
 });
