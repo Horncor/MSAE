@@ -7,5 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class phone extends Model
 {
-    use HasFactory;
+    protected $table = "TELEFONO";
+    protected $conntection = "sqlsrv";
+
+    public $timestamps = true;
+
+    protected $primaryKey = 'ID';
+
+    public function getIdAttribute(){
+        return $this->attributes['ID'];
+    }
 }

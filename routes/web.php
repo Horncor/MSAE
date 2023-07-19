@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,8 +25,8 @@ Route::get('/userInfo', function () {
 });
 
 Route::get('/login', function () {
-    return view('login.login');
-});
+    return view('auth.login');
+})->name('login');
 
 Route::get('/register', function () {
     return view('login.register');
@@ -37,3 +39,14 @@ Route::get('/bisection', function () {
 Route::get('/fixed-point', function () {
     return view('methods.fixedPoint');
 });
+
+Route::post('user/register', [UserController::class, 'userStorage'])->name('user.register');
+
+Route::post('/login/authenticate', [LoginController::class, 'authenticate']);
+
+Route::post('/logout', [LoginController::class, 'logout']);
+
+Route::get('/home', function () {
+    // Solo los usuarios autenticados pueden acceder a esta ruta
+    return view('homeUser');
+})->middleware('auth');

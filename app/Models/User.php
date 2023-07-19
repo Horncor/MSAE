@@ -17,10 +17,31 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $table = 'USUARIO';
+    protected $conntection = "sqlsrv";
+
+
     protected $fillable = [
-        'name',
+        'ID',
+        'login',
+        'contrasena',
         'email',
-        'password',
+    ];
+
+    /**
+     * The primary key for the model.
+     * @var string
+     */
+    protected $primaryKey = 'ID';
+
+    protected $maps = [
+        'id' => 'ID',
+        'login' => 'login',
+        'password' => 'contrasena',
+        'email' => 'email',
+        'remember_token' => 'token_recordarme',
+        'email_verified_at' => 'email_verificado'
     ];
 
     /**
@@ -29,8 +50,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'contrasena',
         'remember_token',
+        'email_verified_at'
     ];
 
     /**
@@ -39,6 +61,31 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verificado' => 'datetime',
     ];
+
+    public function getAuthPassword()
+    {
+        return $this->attributes['contrasena'];
+    }
+
+    public function getAuthIdentifierName()
+    {
+        return 'ID';
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->attributes['ID'];
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->attributes['login'];
+    }
+
+    public function getEmailAttribute()
+    {
+        return $this->attributes['email'];
+    }
 }
