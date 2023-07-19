@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EstadoPersona extends Model
+class typeUser extends Model
 {
-    const ACTIVO = 1;
-    const INACTIVO = 0;
+    const teacher = 1;
+    const student = 2;
 }
