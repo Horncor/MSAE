@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        \Illuminate\Support\Facades\Auth::provider('credentialprovider', function($app, array $config) {
+            return new CredentialServiceProvider($app['hash'], $config['model']);
+        });
     }
 }

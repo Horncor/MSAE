@@ -31,13 +31,15 @@
                                     <img src="{{ asset('assets/images/logos/logo.png') }}" width="40px"
                                         alt="MSAE">
                                 </div>
-                                <form method="POST">
+                                <form action="{{ route('user.register') }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="mb-3 col-md">
                                             <label for="identificationCard" class="form-label">Cédula</label>
-                                            <input type="text" class="form-control" name="identificationCard" id="identificationCard"
-                                                aria-describedby="textHelp" required maxlength="12">
+                                            <input type="text" class="form-control" name="identificationCard"
+                                                id="identificationCard" aria-describedby="textHelp" required
+                                                maxlength="12">
                                         </div>
                                         <div class="mb-3 col-md">
                                             <label for="name" class="form-label">Nombre</label>
@@ -61,8 +63,8 @@
                                         <div class="mb-3 col-md">
                                             <label for="birthDate" class="form-label">Fecha de
                                                 nacimiento</label>
-                                            <input type="date" class="form-control" name="birthDate"
-                                                id="birthDate" aria-describedby="textHelp" required>
+                                            <input type="date" class="form-control" name="birthDate" id="birthDate"
+                                                aria-describedby="textHelp" required>
                                         </div>
                                         <div class="mb-3 col-md">
                                             <label for="phone" class="form-label">Telefono</label>
