@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
+
 
 Route::get('/userInfo', function () {
     return view('userInfo');
@@ -24,6 +25,15 @@ Route::get('/userInfo', function () {
 Route::get('/login', function () {
     return view('login.login');
 });
+
 Route::get('/register', function () {
     return view('login.register');
+});
+
+Route::get('/bisection', function () {
+    return view('methods.bisection');
+});
+
+Route::get('/fixed-point', function () {
+    return view('methods.fixedPoint');
 });
