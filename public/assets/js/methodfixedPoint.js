@@ -1,27 +1,31 @@
-let jsonResults = [];
-
 $(document).ready(function () {
     prevImputFunc();
 });
 
+let jsonResults = [];
+
 function calcularPuntoFijo(iteraciones, tolerancia, XI) {
     let Ea = 100; // Error aproximado inicial
 
+    let valuePrv = XI;
     for (let i = 1; i <= iteraciones && Ea > tolerancia; i++) {
-        const XINuevo = calcularFuncion(XI); // Calcula el nuevo valor de XI
-        Ea = calcularErrorAproximado(XINuevo, XI); // Calcula el error aproximado
+        const XINuevo = g(XI); // Calcula el nuevo valor de XI utilizando la función g(x)
+        const XIPrevio = XI; // Almacena el valor previo de XI
         XI = XINuevo; // Actualiza el valor de XI
+        Ea = diferenciaPorcentual(XI, XIPrevio); // Calcula el error aproximado
 
         jsonResults.push({
             iteracion: i,
-            xi: XI.toFixed(6),
-            ea: Ea.toFixed(6),
+            x: valuePrv.toFixed(5),
+            xi: XINuevo.toFixed(5),
+            ea: Ea.toFixed(5),
         });
+        valuePrv = XI;
     }
     renderTable();
 }
 
-function calcularFuncion(XI) {
+function g(XI) {
     let ecuacion = $("#func").val();
 
     let formularAux = ecuacion
@@ -32,8 +36,8 @@ function calcularFuncion(XI) {
     return eval(formularAux);
 }
 
-function calcularErrorAproximado(XINuevo, XI) {
-    return Math.abs((XINuevo - XI) / XINuevo) * 100;
+function diferenciaPorcentual(XINuevo, XI) {
+    return (Math.abs(XI - XINuevo) / Math.abs(XI)) * 100;
 }
 
 const validateFunc = () => {
@@ -179,6 +183,9 @@ const renderTable = () => {
                         <td>` +
             obj.iteracion +
             `</td>
+            <td>` +
+            obj.x +
+            `</td>
                         <td>` +
             obj.xi +
             `</td>
@@ -193,6 +200,7 @@ const renderTable = () => {
                     <thead>
                     <tr>
                         <th scope="col">Iteracion</th>
+                        <th scope="col">x</th>
                         <th scope="col">Xi</th>
                         <th scope="col">Et(%)</th>
                     </tr>
