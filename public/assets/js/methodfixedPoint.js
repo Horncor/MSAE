@@ -1,39 +1,71 @@
-$(document).ready(function () {
-    prevImputFunc();
-});
+$(document).ready(function () {});
 
 let jsonResults = [];
 
-function calcularPuntoFijo(iteraciones, tolerancia, XI) {
-    let Ea = 100; // Error aproximado inicial
+let iterationData = []; // Arreglo para almacenar los datos de cada iteración
 
-    let valuePrv = XI;
-    for (let i = 1; i <= iteraciones && Ea > tolerancia; i++) {
-        const XINuevo = g(XI); // Calcula el nuevo valor de XI utilizando la función g(x)
-        const XIPrevio = XI; // Almacena el valor previo de XI
-        XI = XINuevo; // Actualiza el valor de XI
-        Ea = diferenciaPorcentual(XI, XIPrevio); // Calcula el error aproximado
+function fixedPointIteration(initialGuess, tolerance) {
+    iterationData = [];
 
-        jsonResults.push({
-            iteracion: i,
-            x: valuePrv.toFixed(5),
-            xi: XINuevo.toFixed(5),
-            ea: Ea.toFixed(5),
+    let currentApproximation = initialGuess;
+    let previousApproximation;
+    let error = tolerance + 1;
+    let iterations = 0;
+
+    while (error > tolerance && iterations < 1000) {
+        previousApproximation = currentApproximation;
+        currentApproximation = fixedPointFunction(previousApproximation);
+        error =
+            Math.abs(
+                (currentApproximation - previousApproximation) /
+                    currentApproximation
+            ) * 100;
+        iterations++;
+
+        iterationData.push({
+            iterations: iterations,
+            initialGuess: previousApproximation.toFixed(
+                parseFloat($("#decimals").val())
+            ),
+            approximation: currentApproximation.toFixed(
+                parseFloat($("#decimals").val())
+            ),
+            error: error.toFixed(2) + "%",
         });
-        valuePrv = XI;
     }
+
     renderTable();
 }
 
-function g(XI) {
-    let ecuacion = $("#func").val();
+function fixedPointFunction(x) {
+    try {
+        let ecuacion = $("#func").val();
 
-    let formularAux = ecuacion
-        .replaceAll("X", XI)
-        .replaceAll("^", "**")
-        .replaceAll(",", ".");
+        // Expresión regular para buscar funciones trigonométricas
+        let regexTrig =
+            /(sin|cos|tan|sec|csc|cot|asin|acos|atan|asec|acsc|acot)(?=\()/gi;
 
-    return eval(formularAux);
+        // Reemplazar cada función trigonométrica encontrada por su valor evaluado con XI
+        let formularAux = ecuacion.replace(regexTrig, (match) => {
+            return Math[match](x);
+        });
+
+        // Reemplazar "Raiz" por la función de raíz cuadrada (sqrt)
+        formularAux = formularAux.replace(/\bRaiz\b/g, `Math.sqrt`);
+
+        // Reemplazar X y x con el valor de XI
+        formularAux = formularAux.replaceAll("X", x).replaceAll("x", x);
+
+        // Reemplazar ^ por **
+        formularAux = formularAux.replaceAll("^", "**");
+
+        // Reemplazar , por .
+        formularAux = formularAux.replaceAll(",", ".");
+
+        return eval(formularAux);
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 function diferenciaPorcentual(XINuevo, XI) {
@@ -81,22 +113,6 @@ const validateFunc = () => {
         exitsError = false;
     }
 
-    if (isNaN(interaciones)) {
-        $("#valor3Help")
-            .text("Debes completar este campo")
-            .removeClass()
-            .addClass("form-text text-danger");
-        $("#interaciones").removeClass().addClass("form-control is-invalid");
-        exitsError = true;
-    } else {
-        $("#valor3Help")
-            .text("Campo valido")
-            .removeClass()
-            .addClass("form-text text-success");
-        $("#interaciones").removeClass().addClass("form-control is-valid");
-        exitsError = false;
-    }
-
     if (isNaN(tolerancia)) {
         $("#valor4Help")
             .text("Debes completar este campo")
@@ -118,54 +134,12 @@ const validateFunc = () => {
     }
 
     try {
-        ecuacion = ecuacion
-            .replaceAll("X", 0)
-            .replaceAll("^", "**")
-            .replaceAll(",", ".");
-        // Intentar evaluar la función
-        eval("var resultado = " + ecuacion);
-
-        // Verificar si el resultado es un número
-        if (typeof resultado !== "number") {
-            alert("Funcion invalida");
-            return false;
-        }
-        calcularPuntoFijo(interaciones, tolerancia, valueXI);
+        fixedPointIteration(valueXI, tolerancia);
     } catch (error) {
-        alert("Funcion invalida");
+        console.log(error);
         // Capturar errores de sintaxis u otros errores durante la evaluación
         return false;
     }
-};
-
-const prevImputFunc = () => {
-    // Obtener el elemento de entrada
-    var funcInput = document.getElementById("func");
-
-    // Agregar el evento "input" al campo de entrada
-    funcInput.addEventListener("input", function (event) {
-        // Obtener el valor actual del campo de entrada
-        var valor = event.target.value;
-
-        // Aplicar la expresión regular para validar el valor actual
-        let patron = /^[X0-9+\-*/^().\s]+$/;
-
-        if (!patron.test(valor)) {
-            // Si el valor no cumple con el patrón, eliminar el último carácter ingresado
-            $("#valor1Help")
-                .text("Caracter no permitido")
-                .removeClass()
-                .addClass("form-text text-danger");
-            $("#func").removeClass().addClass("form-control is-invalid");
-            event.target.value = valor.slice(0, -1);
-        } else {
-            $("#func").removeClass().addClass("form-control is-valid");
-            $("#valor1Help")
-                .text("Funcion valida")
-                .removeClass()
-                .addClass("form-text text-success");
-        }
-    });
 };
 
 //    openModal('Probando','Si funciona')
@@ -177,20 +151,20 @@ const openModal = (title, content) => {
 
 const renderTable = () => {
     htmlBody = ``;
-    jsonResults.forEach((obj) => {
+    iterationData.forEach((obj) => {
         htmlBody +=
             `<tr>
                         <td>` +
-            obj.iteracion +
+            obj.iterations +
             `</td>
             <td>` +
-            obj.x +
+            obj.initialGuess +
             `</td>
                         <td>` +
-            obj.xi +
+            obj.approximation +
             `</td>
                         <td>` +
-            obj.ea +
+            obj.error +
             `</td>
                     </tr>`;
     });
@@ -199,10 +173,10 @@ const renderTable = () => {
         `<table class="table table-hover">
                     <thead>
                     <tr>
-                        <th scope="col">Iteracion</th>
-                        <th scope="col">x</th>
-                        <th scope="col">Xi</th>
-                        <th scope="col">Et(%)</th>
+                        <th scope="col">N° I</th>
+                        <th scope="col">Valor inicial</th>
+                        <th scope="col">Iteración</th>
+                        <th scope="col">Error(%)</th>
                     </tr>
                     </thead>
                     <tbody>

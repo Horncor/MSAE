@@ -42,12 +42,12 @@
                 <div class="container pb-4">
                     <div class="row px-2 pb-1">
                          <div class="col-sm-6 col-md-6 col-lg has-validation">
-                            <label for="func" class="form-label">Ecuacion</label>
+                            <label for="func" class="form-label">Función iterativa</label>
                             <input type="text" class="form-control" id="func" aria-describedby="valor1Help">
-                            <div id="valor1Help" class="form-text">Ingrese una funcion valida.</div>
+                            <div id="valor1Help" class="form-text">Ingrese una unción iterativa.</div>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg">
-                            <label for="valueXI" class="form-label">XI</label>
+                            <label for="valueXI" class="form-label">Valor Inicial</label>
                             <input type="number" class="form-control" id="valueXI" aria-describedby="valor2Help">
                             <div id="valor2Help" class="form-text">Unicamente se permiten numeros.</div>
                         </div>  
@@ -57,10 +57,19 @@
                             <div id="valor4Help" class="form-text">Unicamente se permiten numeros.</div>
                         </div>   
                         <div class="col-sm-6 col-md-6 col-lg">
-                            <label for="interaciones" class="form-label">Max interaciones</label>
-                            <input type="number" class="form-control" id="interaciones" aria-describedby="valor3Help">
-                            <div id="valor3Help" class="form-text">Unicamente se permiten numeros.</div>
-                        </div>         
+                            <label for="decimals" class="form-label">Decimales</label>
+                            <select class="form-select" id="decimals" aria-describedby="valor4Help">
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                            <div id="valor4Help" class="form-text">Secciona los decimales.</div>
+                        </div>
+    
                     </div>
                 </div>
                 <div class="d-flex justify-content-between pb-2">
