@@ -41,19 +41,18 @@ function fixedPointFunction(x) {
     try {
         let ecuacion = $("#func").val();
 
-        // Expresión regular para buscar funciones trigonométricas
-        let regexTrig =
-            /(sin|cos|tan|sec|csc|cot|asin|acos|atan|asec|acsc|acot)(?=\()/gi;
-
-        // Reemplazar cada función trigonométrica encontrada por su valor evaluado con XI
-        let formularAux = ecuacion.replace(regexTrig, (match) => {
-            return Math[match](x);
-        });
+        let formularAux = ecuacion;
 
         // Reemplazar "Raiz" por la función de raíz cuadrada (sqrt)
         formularAux = formularAux.replace(/\bRaiz\b/g, `Math.sqrt`);
 
-        // Reemplazar X y x con el valor de XI
+        // Reemplazar "tan(" por la función tangente (Math.tan(
+        formularAux = formularAux.replace(/tan\(/g, `Math.tan(`);
+
+        // Reemplazar "PI" por su valor numérico
+        formularAux = formularAux.replace(/\bPI\b/g, Math.PI);
+
+        // Reemplazar X y x con el valor de x
         formularAux = formularAux.replaceAll("X", x).replaceAll("x", x);
 
         // Reemplazar ^ por **
@@ -61,6 +60,8 @@ function fixedPointFunction(x) {
 
         // Reemplazar , por .
         formularAux = formularAux.replaceAll(",", ".");
+
+        console.log(formularAux);
 
         return eval(formularAux);
     } catch (e) {
