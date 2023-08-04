@@ -218,7 +218,7 @@ const renderTable = () => {
     });
 
     htmlTable =
-        `<table class="table table-hover">
+        `<table class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>
                         <th scope="col">N° I</th>

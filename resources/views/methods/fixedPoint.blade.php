@@ -93,6 +93,7 @@
                             Calculo</button>
                     </div>
                 </div>
+                <br>
                 <div id="table-result-operation">
 
                 </div>
