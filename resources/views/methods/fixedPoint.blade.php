@@ -7,6 +7,14 @@
     <title>MSAE | Punto Fijo</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/logo.png') }}" />
     @include('layouts.style')
+    <style>
+        /* Estilo para el contenedor del gráfico */
+        #chartContainer {
+            width: 100%; /* Ancho del 100% del contenedor padre */
+            max-width: 800px; /* Ancho máximo de 800px */
+            margin: 0 auto; /* Centrar el contenedor en la pantalla */
+        }
+    </style>
 </head>
 
 <body>
@@ -33,7 +41,7 @@
             @include('layouts.header')
             <div class="container-fluid">
                 <div class="d-flex justify-content-end pb-2">
-                    <h4 class="fw-bolder">Metodo de Punto fijo</h4>
+                    <h4 class="fw-bolder">Metodo de Punto Fijo</h4>
                 </div>
                 <div class="d-flex justify-content-between pb-2">
                     <p class="fs-5">Rellena los campos necesarios</p>
@@ -57,19 +65,12 @@
                             <div id="valor4Help" class="form-text">Unicamente se permiten numeros.</div>
                         </div>   
                         <div class="col-sm-6 col-md-6 col-lg">
-                            <label for="decimals" class="form-label">Decimales</label>
-                            <select class="form-select" id="decimals" aria-describedby="valor4Help">
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                            <div id="valor4Help" class="form-text">Secciona los decimales.</div>
+                            <label class="form-label" for="decimals">Decimales:
+                                <output class="decimals-output" for="decimals">9</output>
+                            </label>
+                            <input type="range" class="form-range" name="decimals" id="decimals" min="1" max="13" step="1" value="9" aria-describedby="decimals"/>
+                            <div id="decimals" class="form-text">Selecciona la cantidad de decimales.</div>
                         </div>
-    
                     </div>
                 </div>
                 <div class="d-flex justify-content-between pb-2">
@@ -78,6 +79,9 @@
                 </div>
                 <div id="table-result-operation">
                     
+                </div>
+                <div id="chartContainer">
+                    <canvas id="chartCanvas"></canvas>
                 </div>
             </div>
         </div>
