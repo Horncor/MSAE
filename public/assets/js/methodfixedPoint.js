@@ -11,10 +11,16 @@ $(document).ready(function () {
 });
 
 let iterationData = []; // Arreglo para almacenar los datos de cada iteración
-
+let originalFunction = "";
+let iterativeFunction = "";
+let initialValue = "";
+let initialTolerance = "";
 function fixedPointIteration(initialGuess, tolerance) {
     iterationData = [];
-
+    originalFunction = $("#originalFunction").val();
+    iterativeFunction = $("#func").val();
+    initialValue = initialGuess;
+    initialTolerance = tolerance
     let currentApproximation = initialGuess;
     let previousApproximation;
     let error = tolerance + 1;
@@ -26,7 +32,7 @@ function fixedPointIteration(initialGuess, tolerance) {
         error =
             Math.abs(
                 (currentApproximation - previousApproximation) /
-                    currentApproximation
+                currentApproximation
             ) * 100;
         iterations++;
 
@@ -108,20 +114,37 @@ function diferenciaPorcentual(XINuevo, XI) {
 const validateFunc = () => {
     // Obtener los valores de los campos de entrada
     let ecuacion = $("#func").val();
+    let ecuacionOriginal = $("#originalFunction").val();
     let valueXI = parseFloat($("#valueXI").val());
     let tolerancia = parseFloat($("#tolerancia").val());
 
     let exitsError = false;
 
-    if (ecuacion == "") {
+    if (ecuacionOriginal == "") {
         $("#valor1Help")
+            .text("Debes completar este campo")
+            .removeClass()
+            .addClass("form-text text-danger");
+        $("#originalFunction").removeClass().addClass("form-control is-invalid");
+        exitsError = true;
+    } else {
+        $("#valor1Help")
+            .text("Campo valido")
+            .removeClass()
+            .addClass("form-text text-success");
+        $("#originalFunction").removeClass().addClass("form-control is-valid");
+        exitsError = false;
+    }
+
+    if (ecuacion == "") {
+        $("#valor2Help")
             .text("Debes completar este campo")
             .removeClass()
             .addClass("form-text text-danger");
         $("#func").removeClass().addClass("form-control is-invalid");
         exitsError = true;
     } else {
-        $("#valor1Help")
+        $("#valor2Help")
             .text("Campo valido")
             .removeClass()
             .addClass("form-text text-success");
@@ -130,14 +153,14 @@ const validateFunc = () => {
     }
 
     if (isNaN(valueXI)) {
-        $("#valor2Help")
+        $("#valor3Help")
             .text("Debes completar este campo")
             .removeClass()
             .addClass("form-text text-danger");
         $("#valueXI").removeClass().addClass("form-control is-invalid");
         exitsError = true;
     } else {
-        $("#valor2Help")
+        $("#valor3Help")
             .text("Campo valido")
             .removeClass()
             .addClass("form-text text-success");
@@ -306,6 +329,30 @@ const GeneratePDF = () => {
             [
                 "Cañas, Guanacaste, 200 mts noreste del Liceo Miguel Araya de Cañas.",
             ],
+        ],
+        theme: "plain",
+        tableWidth: "auto",
+        columnStyles: {
+            0: {
+                halign: "left",
+                cellWidth: "wrap",
+                cellPadding: { top: 0, right: 2, bottom: 1, left: 0 },
+            },
+        },
+        bodyStyles: {
+            textColor: "#000000",
+            halign: "right",
+            fontSize: 8,
+        },
+        startY: doc.lastAutoTable.finalY + 1,
+    });
+
+    doc.autoTable({
+        body: [
+            ["Función original: " + originalFunction],
+            ["Función iterativa: " + iterativeFunction],
+            ["Valor inicial: " + initialValue],
+            ["Tolerancia: " + initialTolerance],
         ],
         theme: "plain",
         tableWidth: "auto",
