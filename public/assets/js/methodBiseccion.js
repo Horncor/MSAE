@@ -5,6 +5,7 @@ $(document).ready(function () {
 });
 
 function bisectionMethod(func, xa, xb, tolerance, maxIterations) {
+    jsonResults = [];
     let ecuacion = $("#func").val();
 
     let iteration = 1; // Contador de iteraciones

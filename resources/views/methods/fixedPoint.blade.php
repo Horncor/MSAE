@@ -7,6 +7,14 @@
     <title>MSAE | Punto Fijo</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/logo.png') }}" />
     @include('layouts.style')
+    <style>
+        /* Estilo para el contenedor del gráfico */
+        #chartContainer {
+            width: 100%; /* Ancho del 100% del contenedor padre */
+            max-width: 800px; /* Ancho máximo de 800px */
+            margin: 0 auto; /* Centrar el contenedor en la pantalla */
+        }
+    </style>
 </head>
 
 <body>
@@ -33,7 +41,7 @@
             @include('layouts.header')
             <div class="container-fluid">
                 <div class="d-flex justify-content-end pb-2">
-                    <h4 class="fw-bolder">Metodo de Punto fijo</h4>
+                    <h4 class="fw-bolder">Metodo de Punto Fijo</h4>
                 </div>
                 <div class="d-flex justify-content-between pb-2">
                     <p class="fs-5">Rellena los campos necesarios</p>
@@ -42,12 +50,12 @@
                 <div class="container pb-4">
                     <div class="row px-2 pb-1">
                          <div class="col-sm-6 col-md-6 col-lg has-validation">
-                            <label for="func" class="form-label">Ecuacion</label>
+                            <label for="func" class="form-label">Función iterativa</label>
                             <input type="text" class="form-control" id="func" aria-describedby="valor1Help">
-                            <div id="valor1Help" class="form-text">Ingrese una funcion valida.</div>
+                            <div id="valor1Help" class="form-text">Ingrese una unción iterativa.</div>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg">
-                            <label for="valueXI" class="form-label">XI</label>
+                            <label for="valueXI" class="form-label">Valor Inicial</label>
                             <input type="number" class="form-control" id="valueXI" aria-describedby="valor2Help">
                             <div id="valor2Help" class="form-text">Unicamente se permiten numeros.</div>
                         </div>  
@@ -57,10 +65,12 @@
                             <div id="valor4Help" class="form-text">Unicamente se permiten numeros.</div>
                         </div>   
                         <div class="col-sm-6 col-md-6 col-lg">
-                            <label for="interaciones" class="form-label">Max interaciones</label>
-                            <input type="number" class="form-control" id="interaciones" aria-describedby="valor3Help">
-                            <div id="valor3Help" class="form-text">Unicamente se permiten numeros.</div>
-                        </div>         
+                            <label class="form-label" for="decimals">Decimales:
+                                <output class="decimals-output" for="decimals">9</output>
+                            </label>
+                            <input type="range" class="form-range" name="decimals" id="decimals" min="1" max="13" step="1" value="9" aria-describedby="decimals"/>
+                            <div id="decimals" class="form-text">Selecciona la cantidad de decimales.</div>
+                        </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between pb-2">
@@ -69,6 +79,9 @@
                 </div>
                 <div id="table-result-operation">
                     
+                </div>
+                <div id="chartContainer">
+                    <canvas id="chartCanvas"></canvas>
                 </div>
             </div>
         </div>
