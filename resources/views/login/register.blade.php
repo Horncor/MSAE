@@ -31,49 +31,51 @@
                                     <img src="{{ asset('assets/images/logos/logo.png') }}" width="40px"
                                         alt="MSAE">
                                 </div>
-                                <form method="POST">
+                                <form action="{{ route('user.register') }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="mb-3 col-md">
-                                            <label for="cedula" class="form-label">Cédula</label>
-                                            <input type="text" class="form-control" name="cedula" id="cedula"
-                                                aria-describedby="textHelp" required maxlength="12">
+                                            <label for="identificationCard" class="form-label">Cédula</label>
+                                            <input type="text" class="form-control" name="identificationCard"
+                                                id="identificationCard" aria-describedby="textHelp" required
+                                                maxlength="12">
                                         </div>
                                         <div class="mb-3 col-md">
-                                            <label for="nombre" class="form-label">Nombre</label>
-                                            <input type="text" class="form-control" name="nombre" id="nombre"
+                                            <label for="name" class="form-label">Nombre</label>
+                                            <input type="text" class="form-control" name="name" id="name"
                                                 aria-describedby="textHelp" required maxlength="60">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md">
-                                            <label for="apellido1" class="form-label">Primer apellido</label>
-                                            <input type="text" class="form-control" name="apellido1" id="apellido1"
+                                            <label for="lastName1" class="form-label">Primer apellido</label>
+                                            <input type="text" class="form-control" name="lastName1" id="lastName1"
                                                 aria-describedby="textHelp" maxlength="50">
                                         </div>
                                         <div class="mb-3 col-md">
-                                            <label for="apellido2" class="form-label">Segundo apellido</label>
-                                            <input type="text" class="form-control" name="apellido2" id="apellido2"
+                                            <label for="lastName2" class="form-label">Segundo apellido</label>
+                                            <input type="text" class="form-control" name="lastName2" id="lastName2"
                                                 aria-describedby="textHelp" maxlength="50">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md">
-                                            <label for="fechaDeNacimiento" class="form-label">Fecha de
+                                            <label for="birthDate" class="form-label">Fecha de
                                                 nacimiento</label>
-                                            <input type="date" class="form-control" name="fechaDeNacimiento"
-                                                id="fechaDeNacimiento" aria-describedby="textHelp" required>
+                                            <input type="date" class="form-control" name="birthDate" id="birthDate"
+                                                aria-describedby="textHelp" required>
                                         </div>
                                         <div class="mb-3 col-md">
-                                            <label for="telefono" class="form-label">Telefono</label>
-                                            <input type="number" class="form-control" name="telefono" id="telefono"
+                                            <label for="phone" class="form-label">Telefono</label>
+                                            <input type="number" class="form-control" name="phone" id="phone"
                                                 aria-describedby="textHelp" maxlength="12">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md">
-                                            <label for="tipoUsuario" class="form-label">Tipo de usuario</label>
-                                            <select class="form-control" name="tipoUsuario" id="tipoUsuario" required
+                                            <label for="userType" class="form-label">Tipo de usuario</label>
+                                            <select class="form-control" name="userType" id="userType" required
                                                 aria-describedby="textHelp">
                                                 <option value="">---Seleccione el tipo de usuario--</option>
                                                 <option value="1">Profesor</option>
@@ -83,22 +85,22 @@
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md">
-                                            <label for="correo" class="form-label">Correo
+                                            <label for="email" class="form-label">Correo
                                                 electronico</label>
-                                            <input type="email" class="form-control" name="correo" id="correo"
+                                            <input type="email" class="form-control" name="email" id="email"
                                                 aria-describedby="emailHelp" required maxlength="120">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md">
-                                            <label for="usuario" class="form-label">Usuario</label>
-                                            <input type="text" class="form-control" name="usuario" id="usuario"
+                                            <label for="user" class="form-label">Usuario</label>
+                                            <input type="text" class="form-control" name="user" id="user"
                                                 aria-describedby="textHelp" required maxlength="60">
                                         </div>
                                         <div class="mb-3 col-md">
-                                            <label for="contrasena" class="form-label">Contraseña</label>
-                                            <input type="password" class="form-control" name="contrasena"
-                                                id="contrasena" required maxlength="12">
+                                            <label for="password" class="form-label">Contraseña</label>
+                                            <input type="password" class="form-control" name="password"
+                                                id="password" required maxlength="12">
                                         </div>
                                     </div>
                                     <button class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Registrar</button>
