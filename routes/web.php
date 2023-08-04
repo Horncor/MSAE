@@ -40,6 +40,11 @@ Route::get('/fixed-point', function () {
     return view('methods.fixedPoint');
 });
 
+/// prueba de metodo de biseccion
+Route::get('/bisection', 'App\Http\Controllers\BisectionController@index')->name('bisection.index');
+Route::post('/bisection', 'App\Http\Controllers\BisectionController@calculate')->name('bisection.calculate');
+
+// rutas para login , logout y post login
 Route::post('user/register', [UserController::class, 'userStorage'])->name('user.register');
 
 Route::post('/login/authenticate', [LoginController::class, 'authenticate']);
