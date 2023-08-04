@@ -40,13 +40,18 @@ Route::get('/fixed-point', function () {
     return view('methods.fixedPoint');
 });
 
+/// prueba de metodo de biseccion
+Route::get('/bisection', 'App\Http\Controllers\BisectionController@index')->name('bisection.index');
+Route::post('/bisection', 'App\Http\Controllers\BisectionController@calculate')->name('bisection.calculate');
+
+// rutas para login , logout y post login
 Route::post('user/register', [UserController::class, 'userStorage'])->name('user.register');
 
 Route::post('/login/authenticate', [LoginController::class, 'authenticate']);
 
-Route::post('/logout', [LoginController::class, 'logout']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/home', function () {
+Route::get('/inicio', function () {
     // Solo los usuarios autenticados pueden acceder a esta ruta
-    return view('homeUser');
+    return view('home');
 })->middleware('auth');

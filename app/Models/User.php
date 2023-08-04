@@ -19,13 +19,13 @@ class User extends Authenticatable
      */
 
     protected $table = 'USUARIO';
-    protected $conntection = "sqlsrv";
+    protected $connection = "msae";
 
 
     protected $fillable = [
         'ID',
-        'login',
-        'contrasena',
+        'NOMBRE',
+        'CONTRASENA',
         'email',
     ];
 
@@ -37,9 +37,9 @@ class User extends Authenticatable
 
     protected $maps = [
         'id' => 'ID',
-        'login' => 'login',
-        'password' => 'contrasena',
-        'email' => 'email',
+        'login' => 'NOMBRE',
+        'password' => 'CONTRASENA',
+        'email' => 'EMAIL',
         'remember_token' => 'token_recordarme',
         'email_verified_at' => 'email_verificado'
     ];
@@ -50,7 +50,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'contrasena',
+        'CONTRASENA',
         'remember_token',
         'email_verified_at'
     ];
@@ -66,7 +66,7 @@ class User extends Authenticatable
 
     public function getAuthPassword()
     {
-        return $this->attributes['contrasena'];
+        return $this->attributes['CONTRASENA'];
     }
 
     public function getAuthIdentifierName()
@@ -81,11 +81,11 @@ class User extends Authenticatable
 
     public function getNameAttribute()
     {
-        return $this->attributes['login'];
+        return $this->attributes['NOMBRE'];
     }
 
     public function getEmailAttribute()
     {
-        return $this->attributes['email'];
+        return $this->attributes['EMAIL'];
     }
 }

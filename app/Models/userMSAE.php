@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class userMSAE extends Model
 {
     protected $table = "USUARIO";
-    protected $conntection = "sqlsrv";
 
     public $timestamps = true;
 
@@ -16,9 +15,9 @@ class userMSAE extends Model
 
     protected $fillable = [
         'ID',
-        'ID_REGISTRADO',
-        'login',
-        'contrasena',
+        'ID_PERSONA',
+        'NOMBRE',
+        'CONTRASENA',
         'TIPO_USUARIO',
         'EMAIL',
         'ESTADO',
@@ -31,10 +30,10 @@ class userMSAE extends Model
         return $this->attributes['ID'];
     }
     public function getUserAttribute(){
-        return $this->attributes['login'];
+        return $this->attributes['NOMBRE'];
     }
     public function getPasswordAttribute(){
-        return $this->attributes['contrasena'];
+        return $this->attributes['CONTRASENA'];
     }
     public function getTypeUserAttribute(){
         return $this->attributes['TIPO_USUARIO'];
