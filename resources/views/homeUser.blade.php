@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>privado</h1>
+    <h1>{{Auth::user()->name}}</h1>
 </body>
 </html>
