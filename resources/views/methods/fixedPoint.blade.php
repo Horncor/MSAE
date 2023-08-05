@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MSAE | Punto Fijo</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/logo.png') }}" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     @include('layouts.style')
     <style>
         /* Estilo para el contenedor del gráfico */
@@ -43,9 +44,7 @@
         <div class="body-wrapper">
             @include('layouts.header')
             <div class="container-fluid">
-                <div class="p-3" style="border: 10px outset #ff6550; box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-                -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-                -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);">
+                
                     <div class="d-flex justify-content-end pb-2">
                         <h4 class="fw-bolder">Metodo de Punto Fijo</h4>
                     </div>
@@ -97,13 +96,12 @@
                 <div id="table-result-operation">
 
                 </div>
-                <div id="chartContainer">
-                    <canvas id="chartCanvas"></canvas>
-                </div>
-            </div>
+                <div id="graphDiv"></div>
+            
         </div>
         @include('layouts.script')
         <script src="{{ asset('assets/js/methodfixedPoint.js') }}"></script>
+        <script src="{{ asset('assets/js/PDF_FIXED_POINT.js') }}"></script>
 </body>
 
 </html>
