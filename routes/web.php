@@ -49,9 +49,9 @@ Route::post('user/register', [UserController::class, 'userStorage'])->name('user
 
 Route::post('/login/authenticate', [LoginController::class, 'authenticate']);
 
-Route::post('/logout', [LoginController::class, 'logout']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/home', function () {
+Route::get('/inicio', function () {
     // Solo los usuarios autenticados pueden acceder a esta ruta
-    return view('homeUser');
+    return view('home');
 })->middleware('auth');
