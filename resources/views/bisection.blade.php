@@ -33,25 +33,38 @@
                         </label>
                 </div>
                 <div class="btn-calcule">
-                        <label for="intervalos">
-                            <span>Intervalos</span>
-                            <button type="submit" class="btn-calculo">Calcular</button>
+                        <label for="Ecuaciones">
+                            <span>Ecuaciones</span>
+                            <button type="submit" name="action" id="action" value="calcule_ecuacion" class="btn-calculo">Calcular</button>
                         </label>
                         <label for="bisection">
-                            <span>Bisección</span>
-                            <button type="submit" class="btn-calculo">Calcular</button>
+                            <span>Trigonometricas</span>
+                            <button type="submit" name="action" id="action" value="calcule_biseccion" class="btn-calculo">Calcular</button>
                         </label>
-</div>
+
+                        <label for="Intervalos">
+                            <span>Intervalos</span>
+                            <button type="submit" name="action" id="action" value="calculate_intervalos" class="btn-calculo">Calcular</button>
+                        </label>
+                </div>
 
 
                 </form>
             </div>
         </section>
-       
+      
         <section class="section-table">
 
+        <div>
+
+        @if(isset($results2))
+        
+        <p>El resultado es: A = {{ $results2['a'] }}, B = {{ $results2['b'] }}</p>
+    @endif
+        
+        <H3 >Resultados de la Biseccion</H3>
             <div class="container-table">
-                <H3>Resultados de la Biseccion</H3>
+
                 @isset($results)
                     <table>
                         <thead>
@@ -69,7 +82,48 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($results as $result)
+                            @foreach($results as $result1)
+                                <tr>
+                                    <td>{{ $result1['iteration'] }}</td>
+                                    <td>{{ $result1['interval_a'] }}</td>
+                                    <td>{{ $result1['interval_b'] }}</td>
+                                    <td>{{ $result1['value_a'] }}</td>
+                                    <td>{{ $result1['f(a)'] }}</td>
+                                    <td>{{ $result1['value_b'] }}</td>
+                                    <td>{{ $result1['f(b)'] }}</td>
+                                    <td>{{ $result1['midpoint'] }}</td>
+                                    <td>{{ $result1['f(midpoint)'] }}</td>
+                                    <td>{{ $result1['error'] }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endisset
+            </div>
+        </section>
+
+        <section class="section-table">
+
+            <div class="container-table">
+
+                @isset($results2)
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Iteraciones</th>
+                                <th>Intervalo A</th>
+                                <th>Intervalo B</th>
+                                <th>Valor A</th>
+                                <th>F imagen de(A)</th>
+                                <th>Valor B</th>
+                                <th>F imagen de(B)</th>
+                                <th>Punto Medio</th>
+                                <th>F imagen de punto medio(X)</th>
+                                <th>Error</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($results2 as $result)
                                 <tr>
                                     <td>{{ $result['iteration'] }}</td>
                                     <td>{{ $result['interval_a'] }}</td>
