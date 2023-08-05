@@ -16,21 +16,25 @@ class userMSAE extends Model
 
     protected $fillable = [
         'ID',
-        'NOMBRE',
-        'CONTRASENA',
+        'ID_REGISTRADO',
+        'login',
+        'contrasena',
         'TIPO_USUARIO',
         'EMAIL',
-        'ESTADO'
+        'ESTADO',
+        'NIVEL_UNIVERSITARIO',
+        'CURSO_ENCARGADO',
+        'UNIVERSIDAD'
     ];
 
     public function getIdAttribute(){
         return $this->attributes['ID'];
     }
     public function getUserAttribute(){
-        return $this->attributes['NOMBRE'];
+        return $this->attributes['login'];
     }
     public function getPasswordAttribute(){
-        return $this->attributes['CONTRASENA'];
+        return $this->attributes['contrasena'];
     }
     public function getTypeUserAttribute(){
         return $this->attributes['TIPO_USUARIO'];
@@ -40,5 +44,14 @@ class userMSAE extends Model
     }
     public function getEstatusAttribute(){
         return $this->attributes['ESTADO'];
+    }
+    public function getCourseInChargeAttribute(){
+        return $this->attributes['CURSO_ENCARGADO'];
+    }
+    public function getUniversityLevelAttribute(){
+        return $this->attributes['NIVEL_UNIVERSITARIO'];
+    }
+    public function getUniversityAttribute(){
+        return $this->attributes['UNIVERSIDAD'];
     }
 }

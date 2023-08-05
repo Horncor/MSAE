@@ -6,12 +6,10 @@ use App\Models\statusUser;
 use App\Models\statusPerson;
 use App\Models\person;
 use App\Models\phone;
-use App\Models\student;
-use App\Models\teacher;
-use App\Models\typeUser;
 use App\Models\userMSAE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -19,7 +17,7 @@ class UserController extends Controller
     public function userStorage(Request $request)
     {
         try {
-            $informationValidation = $request->validate([
+            /*      $informationValidation = $request->validate([
                 'identificationCard' => 'required|string|max:12',
                 'name' => 'required|string|max:60',
                 'lastName1' => 'required|string|max:50',
@@ -34,7 +32,7 @@ class UserController extends Controller
 
             if (!$informationValidation) {
                 return;
-            }
+            } */
 
             $identificationCard = $request->identificationCard;
             $name = $request->name;
@@ -43,7 +41,7 @@ class UserController extends Controller
             $birthDate = $request->birthDate;
             $phonePerson = $request->phone;
             $email = $request->email;
-            $user = $request->user;
+            $userName = $request->user;
             $password = $request->password;
             $userType = intval($request->userType);
 
@@ -61,63 +59,42 @@ class UserController extends Controller
             $person->setConnection('sqlsrv');
             $person->save();
 
+
             /* Proceso para guardar el telefono de la persona */
             if ($phonePerson != '') {
                 $phone = new phone();
                 $phone->NOMBRE = 'PRINCIPAL';
-                $phone->NUMERO_TELEFONO = $phone;
+                $phone->NUMERO_TELEFONO = $phonePerson;
                 $phone->setConnection('sqlsrv');
                 $phone->save();
+
                 /* Proceso para actualizar/agregar el telefono a la persona registrada */
                 person::on('sqlsrv')->where('ID', $person->id)->update(["ID_TELEFONO" => $phone->id]);
             }
 
-            /* Proceso para registrar si es profesor o estudiante */
-            $teacher = new teacher();
-            $student = new student();
-
-            switch ($userType) {
-                case typeUser::teacher:
-                    $teacher->ID_PERSONA = $person->id;
-                    $teacher->setConnection('sqlsrv');
-                    $teacher->save();
-                    break;
-                case typeUser::student:
-                    $student->ID_PERSONA = $person->id;
-                    $student->setConnection('sqlsrv');
-                    $student->save();
-                    break;
-
-                default:
-                    break;
-            }
-
             /* Proceso para guardar el usuario */
             $user = new userMSAE();
-            $user->NOMBRE = $user;
-            $user->CONTRASENA = $password;
+            $user->login = $userName;
+            $user->contrasena = $password;
             $user->EMAIL = $email;
-            if ($userType === typeUser::teacher) {
-                $user->ID_REGISTRADO = $teacher->id;
-            } elseif ($userType === typeUser::student) {
-                $user->ID_REGISTRADO = $student->id;
-            }
             $user->TIPO_USUARIO = $userType;
             $user->ESTADO = statusUser::ACTIVO;
+            $user->ID_REGISTRADO = $person->id;
             $user->setConnection('sqlsrv');
             $user->save();
-
             DB::connection('sqlsrv')->commit();
+            return view('home');
         } catch (\Throwable $th) {
-            DB::connection('dent')->rollback();
+            DB::connection('sqlsrv')->rollback();
+            Log::error($th);
+            return response($th, 500);
         }
     }
 
-    public function verificEmail($user){
+    public function verificEmail($user)
+    {
         $email = $user->email;
-        $token= Str::random(40);
-        $userToken = userMSAE::on('sqlsrv')->update([
-            
-        ]);
+        $token = Str::random(40);
+        $userToken = userMSAE::on('sqlsrv')->update([]);
     }
 }
