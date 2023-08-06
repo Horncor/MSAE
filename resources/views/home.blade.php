@@ -41,6 +41,20 @@
                     {{-- information on numerical methods --}}
                     <div class="card container__info">
                         <div class="card-body ">
+                            <h4 class="card-title fw-bolder fs-6">¿Qué es MSAE?</h4>
+                            <p class="card-text">
+                                MSAE significa: Métodos de solución aproximada de ecuaciones.
+                                <br>
+                                Los metodos que contiene MSAE son los siguientes:
+                                <br>
+                                <strong>~Bisección</strong>
+                                <br>
+                                <strong>~Punto fijo</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card container__info">
+                        <div class="card-body ">
                             <h4 class="card-title fw-bolder fs-6">¿Qué son los Métodos Numéricos?</h4>
                             <p class="card-text">Los métodos numéricos son una serie de operaciones matemáticas
                                 utilizadas para encontrar una

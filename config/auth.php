@@ -111,5 +111,11 @@ return [
     */
 
     'password_timeout' => 10800,
-
+    'providers' => [
+        'users' => [
+            'driver' => 'credentialprovider',
+            'model' => App\Models\User::class,
+            //'table' => 'users',
+        ],
+    ],
 ];

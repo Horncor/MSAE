@@ -33,7 +33,6 @@ class UserController extends Controller
             if (!$informationValidation) {
                 return;
             } */
-
             $identificationCard = $request->identificationCard;
             $name = $request->name;
             $lastName1 = $request->lastName1;
@@ -46,7 +45,7 @@ class UserController extends Controller
             $userType = intval($request->userType);
 
 
-            DB::connection('sqlsrv')->beginTransaction();
+            DB::connection('msae')->beginTransaction();
 
             /* Proceso para guardar primero los datos de persona  */
             $person = new person();
@@ -56,7 +55,7 @@ class UserController extends Controller
             $person->APELLIDO2 = $lastName2;
             $person->FECHA_DE_NACIMIENTO = $birthDate;
             $person->ESTADO = statusPerson::ACTIVO;
-            $person->setConnection('sqlsrv');
+            $person->setConnection('msae');
             $person->save();
 
 
@@ -65,27 +64,27 @@ class UserController extends Controller
                 $phone = new phone();
                 $phone->NOMBRE = 'PRINCIPAL';
                 $phone->NUMERO_TELEFONO = $phonePerson;
-                $phone->setConnection('sqlsrv');
+                $phone->setConnection('msae');
                 $phone->save();
 
                 /* Proceso para actualizar/agregar el telefono a la persona registrada */
-                person::on('sqlsrv')->where('ID', $person->id)->update(["ID_TELEFONO" => $phone->id]);
+                person::on('msae')->where('ID', $person->id)->update(["ID_TELEFONO" => $phone->id]);
             }
 
             /* Proceso para guardar el usuario */
             $user = new userMSAE();
-            $user->login = $userName;
-            $user->contrasena = $password;
+            $user->NOMBRE = $userName;
+            $user->CONTRASENA = $password;
             $user->EMAIL = $email;
             $user->TIPO_USUARIO = $userType;
             $user->ESTADO = statusUser::ACTIVO;
-            $user->ID_REGISTRADO = $person->id;
-            $user->setConnection('sqlsrv');
+            $user->ID_PERSONA = $person->id;
+            $user->setConnection('msae');
             $user->save();
-            DB::connection('sqlsrv')->commit();
+            DB::connection('msae')->commit();
             return view('home');
         } catch (\Throwable $th) {
-            DB::connection('sqlsrv')->rollback();
+            DB::connection('msae')->rollback();
             Log::error($th);
             return response($th, 500);
         }
@@ -95,6 +94,6 @@ class UserController extends Controller
     {
         $email = $user->email;
         $token = Str::random(40);
-        $userToken = userMSAE::on('sqlsrv')->update([]);
+        $userToken = userMSAE::on('msae')->update([]);
     }
 }
