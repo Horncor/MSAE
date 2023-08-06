@@ -82,6 +82,7 @@
         </div>
         <div class="row">
             @isset($results)
+            <script>let results2 = {!! json_encode($results) !!}</script>
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
@@ -117,6 +118,10 @@
             @endisset
         </div>
     </div>
+    @include('layouts.script')
+    <script src="{{ asset('assets/js/methodBiseccion.js') }}"></script>
+    <script src="{{ asset('assets/js/PDF_FIXED_POINT.js') }}"></script>
+    <script src="{{ asset('assets/js/PDF_BISECCION.js') }}"></script>
 </body>
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
