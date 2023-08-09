@@ -17,10 +17,31 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $table = 'USUARIO';
+    protected $connection = "msae";
+
+
     protected $fillable = [
-        'name',
+        'ID',
+        'NOMBRE',
+        'CONTRASENA',
         'email',
-        'password',
+    ];
+
+    /**
+     * The primary key for the model.
+     * @var string
+     */
+    protected $primaryKey = 'ID';
+
+    protected $maps = [
+        'id' => 'ID',
+        'login' => 'NOMBRE',
+        'password' => 'CONTRASENA',
+        'email' => 'EMAIL',
+        'remember_token' => 'token_recordarme',
+        'email_verified_at' => 'email_verificado'
     ];
 
     /**
@@ -29,8 +50,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'CONTRASENA',
         'remember_token',
+        'email_verified_at'
     ];
 
     /**
@@ -39,6 +61,31 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verificado' => 'datetime',
     ];
+
+    public function getAuthPassword()
+    {
+        return $this->attributes['CONTRASENA'];
+    }
+
+    public function getAuthIdentifierName()
+    {
+        return 'ID';
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->attributes['ID'];
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->attributes['NOMBRE'];
+    }
+
+    public function getEmailAttribute()
+    {
+        return $this->attributes['EMAIL'];
+    }
 }
