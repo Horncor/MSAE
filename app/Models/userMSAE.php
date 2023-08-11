@@ -23,7 +23,8 @@ class userMSAE extends Model
         'ESTADO',
         'NIVEL_UNIVERSITARIO',
         'CURSO_ENCARGADO',
-        'UNIVERSIDAD'
+        'UNIVERSIDAD',
+        'TOKEN'
     ];
 
     public function getIdAttribute(){
@@ -43,6 +44,9 @@ class userMSAE extends Model
     }
     public function getEstatusAttribute(){
         return $this->attributes['ESTADO'];
+    }
+    public function getTokenAttribute(){
+        return $this->attributes['TOKEN'];
     }
     public function getCourseInChargeAttribute(){
         return $this->attributes['CURSO_ENCARGADO'];
