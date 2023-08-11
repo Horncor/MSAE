@@ -18,4 +18,6 @@
 
     <!-- Chart.js-->
     <script src="{{ asset('assets/libs/chart/Chart.js') }}"></script>
-<script></script>
+
+    <!-- deployggb.js-->
+    <script src="{{ asset('assets/libs/deployggb/deployggb.js') }}"></script>
