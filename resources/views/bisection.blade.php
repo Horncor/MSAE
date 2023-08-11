@@ -109,6 +109,125 @@
             </div>
         </div>
     </div>
+    
+    <div class="container-fluid p-5 m-auto text-center">
+        <div class="row">
+            <H3>Resultados de la Biseccion</H3>
+        </div>
+        <div class="row">
+            @isset($results)
+            <script>let results2 = {!! json_encode($results) !!}</script>
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Iteraciones</th>
+                            <th>Intervalo A</th>
+                            <th>Intervalo B</th>
+                            <th>Valor A</th>
+                            <th>F imagen de(A)</th>
+                            <th>Valor B</th>
+                            <th>F imagen de(B)</th>
+                            <th>Punto Medio</th>
+                            <th>F imagen de punto medio(X)</th>
+                            <th>Error</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($results as $result1)
+                            <tr>
+                                <td>{{ $result1['iteration'] }}</td>
+                                <td>{{ $result1['interval_a'] }}</td>
+                                <td>{{ $result1['interval_b'] }}</td>
+                                <td>{{ $result1['value_a'] }}</td>
+                                <td>{{ $result1['f(a)'] }}</td>
+                                <td>{{ $result1['value_b'] }}</td>
+                                <td>{{ $result1['f(b)'] }}</td>
+                                <td>{{ $result1['midpoint'] }}</td>
+                                <td>{{ $result1['f(midpoint)'] }}</td>
+                                <td>{{ $result1['error'] }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endisset
+        </div>
+    </div>
+    @include('layouts.script')
+    <script src="{{ asset('assets/js/methodBiseccion.js') }}"></script>
+    <script src="{{ asset('assets/js/PDF_FIXED_POINT.js') }}"></script>
+    <script src="{{ asset('assets/js/PDF_BISECCION.js') }}"></script>
+</body>
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+
+    * {
+        font-family: "Ubuntu", sans-serif;
+    }
+
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .body-principal {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        z-index: -1;
+        background: #2BC0E4;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #EAECC6, #2BC0E4);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #EAECC6, #2BC0E4);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+
+    .main-principal {
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .section-formulario {
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .section-table {
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .container-formulario {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 800px;
+    }
+
+    .container-table {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 800px;
+    }
 
 </body>
 

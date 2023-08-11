@@ -280,14 +280,17 @@ class BisectionController extends Controller
     public function evaluateFunctione($function, $x)
     {
         try {
+            //sustituye ^ por **
+            $function = str_replace('^', '**', $function);
             // Validación de entrada
+
             if (empty($function) || $x === null || $x === '') {
                 return ['error_code' => 1, 'message' => 'La función y el valor de x son requeridos.'];
             }
 
             // Reemplazar 'x' por el valor de $x en la función
             $expression = str_replace('x', $x, $function);
-
+            
             // Define las variables y constantes matemáticas que deseas utilizar
             $variables = [
                 'e' => exp(1), // Constante matemática 'e'
