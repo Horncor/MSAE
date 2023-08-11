@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MSAE | Punto Fijo</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/logo.png') }}" />
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     @include('layouts.style')
 </head>
 
@@ -90,6 +89,9 @@
             </div>
             <div class="row text-center m-auto">
                 <div class="col-md">
+                    <div id='append-title'>
+
+                    </div>
                     <div id="graphDiv"  style="width:100%; height: 400px;"></div>
                 </div>
             </div>
