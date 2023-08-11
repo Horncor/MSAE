@@ -131,25 +131,25 @@ function validFormulaOrignal() {
         formularAux = formularAux.replace(/\bRaiz\b/g, `sqrt`);
 
         // Reemplazar "tan(" por la función tangente (Math.tan(
-        formularAux = formularAux.replace(/tan\(/g, `Math.tan(`);
+        formularAux = formularAux.replace(/tan\(/g, `tan(`);
 
         // Reemplazar "sin(" por la función seno (Math.sin(
-        formularAux = formularAux.replace(/sin\(/g, `Math.sin(`);
+        formularAux = formularAux.replace(/sin\(/g, `sin(`);
 
         // Reemplazar "cos(" por la función coseno (Math.cos(
-        formularAux = formularAux.replace(/cos\(/g, `Math.cos(`);
+        formularAux = formularAux.replace(/cos\(/g, `cos(`);
 
         // Reemplazar "sec(" por la función secante (1 / Math.cos(
-        formularAux = formularAux.replace(/sec\(/g, `(1 / Math.cos(`);
+        formularAux = formularAux.replace(/sec\(/g, `(1 / cos(`);
 
         // Reemplazar "cosec(" por la función cosecante (1 / Math.sin(
-        formularAux = formularAux.replace(/cosec\(/g, `(1 / Math.sin(`);
+        formularAux = formularAux.replace(/cosec\(/g, `(1 / sin(`);
 
         // Reemplazar "cot(" por la función cotangente (1 / Math.tan(
-        formularAux = formularAux.replace(/cot\(/g, `(1 / Math.tan(`);
+        formularAux = formularAux.replace(/cot\(/g, `(1 / tan(`);
 
         // Reemplazar "ln(" por la función logaritmo natural (Math.log(
-        formularAux = formularAux.replace(/ln\(/g, `Math.log(`);
+        formularAux = formularAux.replace(/ln\(/g, `log(`);
 
         // Reemplazar "e" por la constante de Euler (Math.E)
         formularAux = formularAux.replace(/\be\b/g, Math.E);
