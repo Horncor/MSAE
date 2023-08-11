@@ -1,23 +1,12 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MSAE | Punto Fijo</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/logo.png') }}" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     @include('layouts.style')
-    <style>
-        /* Estilo para el contenedor del gráfico */
-        #chartContainer {
-            width: 100%;
-            /* Ancho del 100% del contenedor padre */
-            max-width: 800px;
-            /* Ancho máximo de 800px */
-            margin: 0 auto;
-            /* Centrar el contenedor en la pantalla */
-        }
-    </style>
 </head>
 
 <body>
@@ -42,10 +31,12 @@
         </div>
         <div class="body-wrapper">
             @include('layouts.header')
-            <div class="container-fluid">
-                <div class="p-3" style="border: 10px outset #ff6550; box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-                -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-                -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);">
+            <div class="container-fluid mb-4">
+                <div class="row" style="border: 10px outset #ff6550;border-radius: 19px 19px 19px 19px;
+                -webkit-border-radius: 19px 19px 19px 19px;
+                -moz-border-radius: 19px 19px 19px 19px;box-shadow: 10px 10px 14px -2px rgba(0,0,0,0.44);
+                -webkit-box-shadow: 10px 10px 14px -2px rgba(0,0,0,0.44);
+                -moz-box-shadow: 10px 10px 14px -2px rgba(0,0,0,0.44);">
                     <div class="d-flex justify-content-end pb-2">
                         <h4 class="fw-bolder">Metodo de Punto Fijo</h4>
                     </div>
@@ -73,8 +64,7 @@
                             </div>
                             <div class="col-md">
                                 <label for="tolerancia" class="form-label">Tolerancia</label>
-                                <input type="number" class="form-control" id="tolerancia"
-                                    aria-describedby="valor4Help">
+                                <input type="number" class="form-control" id="tolerancia" aria-describedby="valor4Help">
                                 <div id="valor4Help" class="form-text">Unicamente se permiten numeros.</div>
                             </div>
                             <div class="col-md">
@@ -93,17 +83,20 @@
                             Calculo</button>
                     </div>
                 </div>
-                <br>
-                <div id="table-result-operation">
+            </div>
+            <br>
+            <div id="table-result-operation">
 
-                </div>
-                <div id="chartContainer">
-                    <canvas id="chartCanvas"></canvas>
+            </div>
+            <div class="row text-center m-auto">
+                <div class="col-md">
+                    <div id="graphDiv"  style="width:100%; height: 400px;"></div>
                 </div>
             </div>
         </div>
         @include('layouts.script')
         <script src="{{ asset('assets/js/methodfixedPoint.js') }}"></script>
+        <script src="{{ asset('assets/js/PDF_FIXED_POINT.js') }}"></script>
 </body>
 
 </html>
