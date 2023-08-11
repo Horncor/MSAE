@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConfirmacionCuentaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -55,3 +56,6 @@ Route::get('/inicio', function () {
     // Solo los usuarios autenticados pueden acceder a esta ruta
     return view('home');
 })->middleware('auth');
+
+// rutas para confirmación de correo
+Route::get('/confirmar-cuenta/{token}', [ConfirmacionCuentaController::class, 'confirmar'])->name('confirmar-cuenta');

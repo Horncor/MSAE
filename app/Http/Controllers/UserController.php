@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmacionCuenta;
 use App\Models\statusUser;
 use App\Models\statusPerson;
 use App\Models\person;
@@ -10,6 +11,7 @@ use App\Models\userMSAE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -63,25 +65,29 @@ class UserController extends Controller
             if ($phonePerson != '') {
                 $phone = new phone();
                 $phone->NOMBRE = 'PRINCIPAL';
+                $phone->ID_PERSONA = $person->id;
                 $phone->NUMERO_TELEFONO = $phonePerson;
                 $phone->setConnection('msae');
                 $phone->save();
-
-                /* Proceso para actualizar/agregar el telefono a la persona registrada */
-                person::on('msae')->where('ID', $person->id)->update(["ID_TELEFONO" => $phone->id]);
             }
 
             /* Proceso para guardar el usuario */
+            $token = Str::random(40);
             $user = new userMSAE();
             $user->NOMBRE = $userName;
             $user->CONTRASENA = $password;
             $user->EMAIL = $email;
             $user->TIPO_USUARIO = $userType;
-            $user->ESTADO = statusUser::ACTIVO;
+            $user->ESTADO = statusUser::INACTIVO;
+            $user->TOKEN = $token;
             $user->ID_PERSONA = $person->id;
             $user->setConnection('msae');
             $user->save();
             DB::connection('msae')->commit();
+            
+            $urlConfirmacion = route('confirmar-cuenta', ['token' => $user->token]);
+
+            Mail::to($user->email)->send(new ConfirmacionCuenta($urlConfirmacion));
             return view('home');
         } catch (\Throwable $th) {
             DB::connection('msae')->rollback();
