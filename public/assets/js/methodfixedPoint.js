@@ -1,4 +1,4 @@
-let imgGraphBase64 = '';
+let imgGraphBase64 = "";
 
 //Init document ready
 $(document).ready(function () {
@@ -52,7 +52,6 @@ function fixedPointIteration(initialGuess, tolerance) {
 
     renderTable();
     generateGraph();
-    alertGeneratePDF();
 }
 
 function fixedPointFunction(x) {
@@ -122,57 +121,101 @@ function diferenciaPorcentual(XINuevo, XI) {
     return (Math.abs(XI - XINuevo) / Math.abs(XI)) * 100;
 }
 
+function validFormulaOrignal() {
+    try {
+        let ecuacion = $("#originalFunction").val();
+
+        let formularAux = ecuacion;
+
+        // Reemplazar "Raiz" por la función de raíz cuadrada (Math.sqrt)
+        formularAux = formularAux.replace(/\bRaiz\b/g, `sqrt`);
+
+        // Reemplazar "tan(" por la función tangente (Math.tan(
+        formularAux = formularAux.replace(/tan\(/g, `tan(`);
+
+        // Reemplazar "sin(" por la función seno (Math.sin(
+        formularAux = formularAux.replace(/sin\(/g, `sin(`);
+
+        // Reemplazar "cos(" por la función coseno (Math.cos(
+        formularAux = formularAux.replace(/cos\(/g, `cos(`);
+
+        // Reemplazar "sec(" por la función secante (1 / Math.cos(
+        formularAux = formularAux.replace(/sec\(/g, `(1 / cos(`);
+
+        // Reemplazar "cosec(" por la función cosecante (1 / Math.sin(
+        formularAux = formularAux.replace(/cosec\(/g, `(1 / sin(`);
+
+        // Reemplazar "cot(" por la función cotangente (1 / Math.tan(
+        formularAux = formularAux.replace(/cot\(/g, `(1 / tan(`);
+
+        // Reemplazar "ln(" por la función logaritmo natural (Math.log(
+        formularAux = formularAux.replace(/ln\(/g, `log(`);
+
+        // Reemplazar "e" por la constante de Euler (Math.E)
+        formularAux = formularAux.replace(/\be\b/g, Math.E);
+
+        // Reemplazar "PI" por su valor numérico
+        formularAux = formularAux.replace(/\bPI\b/g, Math.PI);
+
+        // Reemplazar "PI" por su valor numérico
+        formularAux = formularAux.replace(/\bpi\b/g, Math.PI);
+
+        // Reemplazar ^ por **
+        formularAux = formularAux.replaceAll("^", "**");
+
+        // Reemplazar , por .
+        formularAux = formularAux.replaceAll(",", ".");
+
+        console.log("f(x) =" + formularAux);
+
+        return "f(x) =" + formularAux;
+    } catch (e) {
+        Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "La funcion original no es valida para generar el grafico.",
+            showConfirmButton: false,
+            timer: 1500,
+        });
+        console.log(e);
+    }
+}
+
 // Función para generar el gráfico
 function generateGraph() {
-    const x = Array.from({ length: iterationData.length }, (_, i) => i + 1);
-    const y = iterationData.map((data) =>
-        parseFloat(data.approximation.replace(",", "."))
-    );
-
-    const xnValue = parseFloat(
-        iterationData[iterationData.length - 1].approximation.replace(",", ".")
-    ); // Valor redondeado de xn
-    const xnIndex = iterationData.length - 1; // Índice donde xn se encuentra en el arreglo x
-    const xChart = x.slice(0, xnIndex + 1); // Arreglo de valores de x hasta xn
-    const yChart = y.slice(0, xnIndex + 1); // Arreglo de valores de y hasta xn
-
-    const trace1 = {
-        x: xChart,
-        y: yChart,
-        mode: "lines",
-        name: "Aproximación",
+    let parameters = {
+        appname: "graphing",
+        id: "ggbApplet",
+        width: 1200,
+        height: 600,
+        showToolBar: false,
+        borderColor: null,
+        showMenuBar: false,
+        allowStyleBar: false,
+        showAlgebraInput: true,
+        enableLabelDrags: false,
+        enableShiftDragZoom: true,
+        capturingThreshold: null,
+        showToolBarHelp: false,
+        errorDialogsActive: false,
+        showTutorialLink: false,
+        showLogging: false,
+        useBrowserForJS: false,
+        disableAutoScale: false,
+        perspective: "1",
+        appletOnLoad: function () {
+            let applet = document.ggbApplet;
+            applet.evalCommand(validFormulaOrignal());
+            applet.evalCommand("ZoomFit");
+        },
     };
 
-    const trace2 = {
-        x: [xnValue],
-        y: [yChart[yChart.length - 1]],
-        mode: "markers",
-        type: "scatter",
-        name: "Raiz",
-        marker: { size: 10 },
-    };
+    $('#append-title').empty().append(`<div class="d-flex justify-content-center pb-2">
+                                        <p class="fs-5">Grafico de geogebra</p>
+                                    </div>`);
 
-    const data = [trace1, trace2];
-
-    const layout = {
-        title: "Gráfica de Aproximación y Raiz",
-        xaxis: { title: "Iteración" },
-        yaxis: { title: "Aproximación" },
-        showlegend: true,
-    };
-
-    Plotly.newPlot("graphDiv", data, layout);
-
-    // Create the plot
-    Plotly.toImage(graphDiv, { format: "png" })
-        .then(function (url) {
-            // The variable 'imageData' will contain the base64 encoded image
-            const imageData = url.split(",")[1];
-            imgGraphBase64 = imageData;
-        })
-        .catch(function (err) {
-            console.error("Error while generating the graph image:", err);
-        });
+    let applet = new GGBApplet(parameters, "5.0", "graphDiv");
+    applet.inject("graphDiv");
 }
 
 const validateFunc = () => {
