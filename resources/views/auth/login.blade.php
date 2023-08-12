@@ -7,6 +7,7 @@
     <title>Inicio de session</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/logo.png') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
+    @include('layouts.style')
 </head>
 
 <body>
@@ -17,6 +18,7 @@
         background: linear-gradient(90deg,#4e73df 30%, #36b9cc 60%);
         background: -webkit-linear-gradient(90deg,#4e73df 30%, #36b9cc 60%);
         background: -moz-linear-gradient(90deg,#4e73df 30%, #36b9cc 60%);">
+                @include('layouts.navbar')
         <div
             class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
             <div class="d-flex align-items-center justify-content-center w-100">
@@ -70,6 +72,7 @@
     </div>
     <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    @include('layouts.script')
 </body>
 
 </html>

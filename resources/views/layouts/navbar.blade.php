@@ -48,7 +48,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/bisection" aria-expanded="false">
                         <span>
-                            <i class="bi bi-person"></i>
+                            <i class="bi bi-file-earmark-text"></i>
                         </span>
                         <span class="hide-menu">Método de bisección</span>
                     </a>
