@@ -98,6 +98,8 @@ function validFormulaBiseccion() {
             timer: 1500,
         });
         console.log(e);
+    } finally {
+        localStorage.removeItem('func');
     }
 }
 
