@@ -21,3 +21,6 @@
 
     <!-- deployggb.js-->
     <script src="{{ asset('assets/libs/deployggb/deployggb.js') }}"></script>
+
+    <!-- UtilsBolzano.js-->
+    <script src="{{ asset('assets/js/UtilsBolzano.js') }}"></script>

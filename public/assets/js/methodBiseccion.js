@@ -6,17 +6,16 @@ $(document).ready(function () {
 });
 
 const onclickBiseccion = () => {
-    console.log('entro a onclickBiseccion');
-    let funcionValue = $("#function").val()
+    console.log("entro a onclickBiseccion");
+    let funcionValue = $("#function").val();
 
     // Guardar un valor en el localStorage
-    localStorage.setItem('func', funcionValue);
-}
-
+    localStorage.setItem("func", funcionValue);
+};
 
 function ValidExitsData() {
     // Verificar si la variable 'results2' está definida
-    if (typeof results2 !== 'undefined') {
+    if (typeof results2 !== "undefined") {
         // Ahora puedes utilizar la variable 'results2' en JavaScript
         console.log(results2); // Aquí puedes hacer lo que necesites con 'results2'
         Swal.fire({
@@ -38,12 +37,11 @@ function ValidExitsData() {
     }
 }
 
-
 function validFormulaBiseccion() {
-    console.log('entro a validFormulaBiseccion');
+    console.log("entro a validFormulaBiseccion");
     try {
         // Obtener un valor del localStorage
-        let funcLocal = localStorage.getItem('func');
+        let funcLocal = localStorage.getItem("func");
 
         let formularAux = funcLocal;
 
@@ -99,12 +97,12 @@ function validFormulaBiseccion() {
         });
         console.log(e);
     } finally {
-        localStorage.removeItem('func');
+        localStorage.removeItem("func");
     }
 }
 
 function GenerateGraphBisecion() {
-    let funcLocal = localStorage.getItem('func');
+    let funcLocal = localStorage.getItem("func");
     if (funcLocal !== null) {
         let parameters = {
             appname: "graphing",
@@ -133,7 +131,8 @@ function GenerateGraphBisecion() {
             },
         };
 
-        $('#append-title').empty().append(`<div class="d-flex justify-content-center pb-2">
+        $("#append-title").empty()
+            .append(`<div class="d-flex justify-content-center pb-2">
                                         <p class="fs-5">Grafico de geogebra</p>
                                     </div>`);
 
@@ -141,3 +140,77 @@ function GenerateGraphBisecion() {
         applet.inject("graphDiv");
     }
 }
+
+const ApplyBolzanoBiseccion = () => {
+    console.log('entro')
+    const interval = findInterval(obtainFuncOrinalBiseccion);
+    if (interval.length > 0) {
+        $("#a").val(interval[0]);
+        $("#b").val(interval[1]);
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `Se han encontrado el intervalo con bolzano [${interval}] `,
+            showConfirmButton: false,
+            timer: 2500,
+        });
+    }
+};
+
+const obtainFuncOrinalBiseccion = (x) => {
+    try {
+        let ecuacion = $("#function").val();
+
+        // Reemplazar "Raiz" por la función de raíz cuadrada (Math.sqrt)
+        ecuacion = ecuacion.replace(/\bRaiz\b/g, `Math.sqrt`);
+
+        // Reemplazar "tan(" por la función tangente (Math.tan(
+        ecuacion = ecuacion.replace(/tan\(/g, `Math.tan(`);
+
+        // Reemplazar "sin(" por la función seno (Math.sin(
+        ecuacion = ecuacion.replace(/sin\(/g, `Math.sin(`);
+
+        // Reemplazar "cos(" por la función coseno (Math.cos(
+        ecuacion = ecuacion.replace(/cos\(/g, `Math.cos(`);
+
+        // Reemplazar "sec(" por la función secante (1 / Math.cos(
+        ecuacion = ecuacion.replace(/sec\(/g, `(1 / Math.cos(`);
+
+        // Reemplazar "cosec(" por la función cosecante (1 / Math.sin(
+        ecuacion = ecuacion.replace(/cosec\(/g, `(1 / Math.sin(`);
+
+        // Reemplazar "cot(" por la función cotangente (1 / Math.tan(
+        ecuacion = ecuacion.replace(/cot\(/g, `(1 / Math.tan(`);
+
+        // Reemplazar "ln(" por la función logaritmo natural (Math.log(
+        ecuacion = ecuacion.replace(/ln\(/g, `Math.log(`);
+
+        // Reemplazar "e" por la constante de Euler (Math.E)
+        ecuacion = ecuacion.replace(/\be\b/g, Math.E);
+
+        // Reemplazar "PI" por su valor numérico
+        ecuacion = ecuacion.replace(/\bPI\b/g, Math.PI);
+
+        // Reemplazar "PI" por su valor numérico
+        ecuacion = ecuacion.replace(/\bpi\b/g, Math.PI);
+
+        // Reemplazar X y x con el valor de x
+        ecuacion = ecuacion.replaceAll("X", x).replaceAll("x", x);
+
+        // Reemplazar ^ por **
+        ecuacion = ecuacion.replaceAll("^", "**");
+
+        // Reemplazar , por .
+        ecuacion = ecuacion.replaceAll(",", ".");
+
+        return eval(ecuacion);
+    } catch (error) {
+        Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Valida que la funcion orinal sea correcta.",
+            showConfirmButton: false,
+            timer: 1500,
+        });
+    }
+};

@@ -26,7 +26,7 @@
                      <div class="row">
                         <div class="col-md mb-3">
                            <label for="function" class="form-label">Función</label>
-                           <input type="text" class="form-control" name="function" id="function" />
+                           <input type="text" class="form-control" onblur="ApplyBolzanoBiseccion()" name="function" id="function" />
                         </div>
                         <div class="col-md mb-3">
                            <label for="a" class="form-label">Intervalo-A</label>
