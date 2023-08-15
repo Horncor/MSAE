@@ -47,7 +47,7 @@
                         <div class="row px-2 pb-1">
                             <div class="col-md has-validation">
                                 <label for="originalFunction" class="form-label">Función original</label>
-                                <input type="text" class="form-control" id="originalFunction"
+                                <input type="text" class="form-control" onblur="ApplyBolzano()" id="originalFunction"
                                     aria-describedby="valor1Help">
                                 <div id="valor1Help" class="form-text">Ingrese una función original.</div>
                             </div>
