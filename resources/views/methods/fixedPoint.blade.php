@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MSAE | Punto Fijo</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/logo.png') }}" />
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     @include('layouts.style')
 </head>
 
@@ -13,22 +12,6 @@
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
         @include('layouts.navbar')
-        <div id="myModal" class="modal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 id="TitleModal" class="modal-title">Title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div id="ModalContent" class="modal-body">
-                        <!-- Contenido del modal -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="body-wrapper">
             @include('layouts.header')
             <div class="container-fluid mb-4">
@@ -48,7 +31,7 @@
                         <div class="row px-2 pb-1">
                             <div class="col-md has-validation">
                                 <label for="originalFunction" class="form-label">Función original</label>
-                                <input type="text" class="form-control" id="originalFunction"
+                                <input type="text" class="form-control" onblur="ApplyBolzano()" id="originalFunction"
                                     aria-describedby="valor1Help">
                                 <div id="valor1Help" class="form-text">Ingrese una función original.</div>
                             </div>
@@ -90,7 +73,12 @@
             </div>
             <div class="row text-center m-auto">
                 <div class="col-md">
-                    <div id="graphDiv"  style="width:100%; height: 400px;"></div>
+                    <div id='append-title'>
+
+                    </div>
+                        <div id="graphDiv"  style="width:100%; height: 400px;">
+
+                    </div>
                 </div>
             </div>
         </div>
