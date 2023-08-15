@@ -96,7 +96,8 @@ const Gerate_PDF_Biseccion = (iterationData) => {
         .then((canvas) => {
             const imgData = canvas.toDataURL("image/jpeg", 1.0);
             doc.addImage(imgData, "JPEG", 10, doc.lastAutoTable.finalY + 20, 190, 100); // Ajusta las dimensiones y la posición según tus necesidades
-            doc.save("Metodo_PDF_Biseccion.pdf"); // Nombre del archivo PDF
+            //doc.save("Metodo_PDF_Biseccion.pdf"); // Nombre del archivo PDF
+            doc.output('dataurlnewwindow');
         })
         .catch((error) => {
             console.error("Error al capturar la gráfica:", error);

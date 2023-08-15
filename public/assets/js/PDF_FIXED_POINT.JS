@@ -114,11 +114,24 @@ const GeneratePDF = (iterationData) => {
         // Obtener la coordenada Y después de la última tabla
         const lastY = doc.lastAutoTable.finalY + 3;
 
-        // Insertar la imagen en el documento PDF debajo de la última tabla
-        doc.addImage(imgGraphBase64, "png", 10, lastY, 180, 95); // Ajusta las coordenadas y dimensiones según lo desees
-
-
-        doc.save("Metodo_Punto_Fijo.pdf");
+        // Capturar el contenido completo de la gráfica como imagen
+        html2canvas(document.getElementById("graphDiv"), { scale: 2 })
+            .then((canvas) => {
+                const imgData = canvas.toDataURL("image/jpeg", 1.0);
+                doc.addImage(
+                    imgData,
+                    "JPEG",
+                    10,
+                    doc.lastAutoTable.finalY + 20,
+                    190,
+                    100
+                ); // Ajusta las dimensiones y la posición según tus necesidades
+                //doc.save("Metodo_PDF_Biseccion.pdf"); // Nombre del archivo PDF
+                doc.output("dataurlnewwindow");
+            })
+            .catch((error) => {
+                console.error("Error al capturar la gráfica:", error);
+            });
     } catch (e) {
         console.log(e);
     }

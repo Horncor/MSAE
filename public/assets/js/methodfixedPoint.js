@@ -56,6 +56,7 @@ function fixedPointIteration(initialGuess, tolerance) {
     }
     renderTable();
     generateGraph();
+    alertGeneratePDF();
 }
 
 /*
