@@ -21,3 +21,9 @@
 
     <!-- deployggb.js-->
     <script src="{{ asset('assets/libs/deployggb/deployggb.js') }}"></script>
+
+    <!-- UtilsBolzano.js-->
+    <script src="{{ asset('assets/js/UtilsBolzano.js') }}"></script>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
