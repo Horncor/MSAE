@@ -4,6 +4,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>MSAE | Bisección</title>
+      
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+
       <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/logo.png') }}" />
       @include('layouts.style')
    </head>

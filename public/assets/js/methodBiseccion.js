@@ -123,7 +123,7 @@ function GenerateGraphBisecion() {
             showLogging: false,
             useBrowserForJS: false,
             disableAutoScale: false,
-            perspective: "1",
+            perspective: "0",
             appletOnLoad: function () {
                 let applet = document.ggbApplet;
                 applet.evalCommand(validFormulaBiseccion());
@@ -138,6 +138,8 @@ function GenerateGraphBisecion() {
 
         let applet = new GGBApplet(parameters, "5.0", "graphDiv");
         applet.inject("graphDiv");
+
+        // Capturar el valor graphDiv que sera enviado a la funcion de modal para poder graficar
     }
 }
 
