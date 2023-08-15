@@ -57,5 +57,11 @@ Route::get('/inicio', function () {
     return view('home');
 })->middleware('auth');
 
+Route::get('/user/info', function () {
+    // Solo los usuarios autenticados pueden acceder a esta ruta
+    Route::get('/confirmar-cuenta/{token}', [ConfirmacionCuentaController::class, 'confirmar'])->name('user.info');
+})->middleware('auth');
+
+
 // rutas para confirmación de correo
 Route::get('/confirmar-cuenta/{token}', [ConfirmacionCuentaController::class, 'confirmar'])->name('confirmar-cuenta');
