@@ -12,22 +12,6 @@
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
         @include('layouts.navbar')
-        <div id="myModal" class="modal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 id="TitleModal" class="modal-title">Title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div id="ModalContent" class="modal-body">
-                        <!-- Contenido del modal -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="body-wrapper">
             @include('layouts.header')
             <div class="container-fluid mb-4">
@@ -92,7 +76,9 @@
                     <div id='append-title'>
 
                     </div>
-                    <div id="graphDiv"  style="width:100%; height: 400px;"></div>
+                        <div id="graphDiv"  style="width:100%; height: 400px;">
+
+                    </div>
                 </div>
             </div>
         </div>

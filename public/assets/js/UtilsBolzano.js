@@ -1,3 +1,4 @@
+
 const hasSignChange = (left, right, functionToCheck) => {
     return functionToCheck(left) * functionToCheck(right) < 0;
 };

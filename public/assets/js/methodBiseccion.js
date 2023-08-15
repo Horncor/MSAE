@@ -1,8 +1,8 @@
 let jsonResults = [];
 
-$(document).ready(function () {
+$(document).ready(async function () {
+    await GenerateGraphBisecion();
     ValidExitsData();
-    GenerateGraphBisecion();
 });
 
 const onclickBiseccion = () => {
@@ -101,7 +101,7 @@ function validFormulaBiseccion() {
     }
 }
 
-function GenerateGraphBisecion() {
+const GenerateGraphBisecion = async () => {
     let funcLocal = localStorage.getItem("func");
     if (funcLocal !== null) {
         let parameters = {
@@ -137,14 +137,14 @@ function GenerateGraphBisecion() {
                                     </div>`);
 
         let applet = new GGBApplet(parameters, "5.0", "graphDiv");
-        applet.inject("graphDiv");
+        await applet.inject("graphDiv");
 
         // Capturar el valor graphDiv que sera enviado a la funcion de modal para poder graficar
     }
-}
+};
 
 const ApplyBolzanoBiseccion = () => {
-    console.log('entro')
+    console.log("entro");
     const interval = findInterval(obtainFuncOrinalBiseccion);
     if (interval.length > 0) {
         $("#a").val(interval[0]);
