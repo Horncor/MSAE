@@ -32,7 +32,7 @@ function fixedPointIteration(initialGuess, tolerance) {
     let error = tolerance + 1;
     let iterations = 0;
 
-    while (error > tolerance && iterations < 1000) {
+    while (error > tolerance && iterations < 5000) {
         previousApproximation = currentApproximation;
         currentApproximation = fixedPointFunction(previousApproximation);
         error =
@@ -112,6 +112,8 @@ const obtainFuncIterative = (x) => {
 
         // Reemplazar , por .
         formularAux = formularAux.replaceAll(",", ".");
+
+        console.log(formularAux)
 
         return eval(formularAux);
     } catch (e) {
@@ -299,6 +301,7 @@ const validateFunc = () => {
     }
 
     try {
+
         fixedPointIteration(valueXI, tolerancia);
     } catch (error) {
         console.log(error);
@@ -349,9 +352,9 @@ const renderTable = () => {
 
 const alertGeneratePDF = () => {
     Swal.fire({
-        title: "¿Descargar PDF?",
+        title: "¿Desear ver un PDF?",
         icon: "question",
-        html: "Deseas descargar un PDF, Donde estaran todos tus resultados",
+        html: "Deseas ver un PDF, Donde estaran todos tus resultados",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",

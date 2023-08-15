@@ -2,7 +2,7 @@ const Gerate_PDF_Biseccion = (iterationData) => {
     try {
         let doc = new jsPDF({lineHeight: 1.5});
 
-        doc.setProperties({title: `METODO DE PUNTO FIJO`});
+        doc.setProperties({title: `METODO DE BISECCION`});
 
         doc.addImage(img, "png", 170, 15, 30, 15);
 
